@@ -1,0 +1,22 @@
+#!/bin/bash
+
+if [  ! -n "$ESIMU_ROOT" ]; then
+	echo "### Error ### ESIMU_ROOT is not set!" 
+	exit -1;
+fi
+
+ESIMU_QEMU_SRC=$ESIMU_ROOT/src/qemu
+ESIMU_UBOOT_SRC=$ESIMU_ROOT/src/uboot
+ESIMU_KERNEL_SRC=$ESIMU_ROOT/src/kernel
+ESIMU_BUSYBOX_SRC=$ESIMU_ROOT/src/busybox
+
+ESIMU_QEMU_OUT=$ESIMU_ROOT/out/qemu
+ESIMU_UBOOT_OUT=$ESIMU_ROOT/out/uboot
+ESIMU_KERNEL_OUT=$ESIMU_ROOT/out/kernel
+ESIMU_BUSYBOX_OUT=$ESIMU_ROOT/out/busybox
+
+ESIMU_TARBALLS_DIR=$ESIMU_ROOT/eSimu/tarballs
+ESIMU_SCRIPTS_DIR=$ESIMU_ROOT/eSimu/scripts
+ESIMU_PATCHES_DIR=$ESIMU_ROOT/eSimu/patches
+ESIMU_ROOTFS_DIR=$ESIMU_ROOT/out/rootfs
+ESIMU_TOOLCHAINS_DIR=$ESIMU_ROOT/toolchains
