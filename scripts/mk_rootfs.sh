@@ -40,12 +40,7 @@ mknod $ESIMU_ROOTFS_DIR/dev/null c 1 3
 
 rm -f $ESIMU_ROOTFS_DIR/linuxrc
 
-echo "#!/bin/busybox sh" > $ESIMU_ROOTFS_DIR/init
-echo "mount -t proc none /proc" >> $ESIMU_ROOTFS_DIR/init
-echo "mount -t sysfs none /sys" >> $ESIMU_ROOTFS_DIR/init
-echo "" >> $ESIMU_ROOTFS_DIR/init
-echo "exec /sbin/init" >> $ESIMU_ROOTFS_DIR/init
-chmod a+x $ESIMU_ROOTFS_DIR/init
+cp -r $ESIMU_PATCHES_DIR/rootfs/* $ESIMU_ROOTFS_DIR/
 
 cd $ESIMU_ROOTFS_DIR/
 find . | cpio -o -H newc | gzip -9 > $ESIMU_ROOT/out/ramdisk.gz

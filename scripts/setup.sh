@@ -20,7 +20,7 @@ if [ ! -f "$ESIMU_TARBALLS_DIR/qemu-4.0.0.tar.xz" ]; then
 		echo "Tarballs preparing..."
 		cd $ESIMU_TARBALLS_DIR/
 		cat tarballs.tar.bz2* | tar -xjf -
-		rm -r tarballs.tar.bz2*
+		#rm -r tarballs.tar.bz2*
 		# These splitted bz2 files are created with the following command:
 		#   tar -cjvf - * | split -b 48M -d - tarballs.tar.bz2
 	else
