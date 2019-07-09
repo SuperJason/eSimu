@@ -31,7 +31,7 @@ function build_kernel_defconfig()
 {
 	cd $ESIMU_KERNEL_OUT
 	export CROSS_COMPILE=$ESIMU_TOOLCHAINS_DIR/aarch64/bin/aarch64-linux-gnu-
-	make -C $ESIMU_KERNEL_SRC ARCH=arm64 O=$ESIMU_KERNEL_OUT defconfig
+	make -C $ESIMU_KERNEL_SRC ARCH=arm64 O=$ESIMU_KERNEL_OUT esimu_slim_defconfig
 }
 
 function build_kernel_menuconfig()
@@ -39,7 +39,6 @@ function build_kernel_menuconfig()
 	cd $ESIMU_KERNEL_OUT
 	export CROSS_COMPILE=$ESIMU_TOOLCHAINS_DIR/aarch64/bin/aarch64-linux-gnu-
 	make -C $ESIMU_KERNEL_SRC ARCH=arm64 O=$ESIMU_KERNEL_OUT menuconfig
-	make -C $ESIMU_KERNEL_SRC ARCH=arm64 O=$ESIMU_KERNEL_OUT saveconfig
 }
 
 function build_busybox()
@@ -56,6 +55,34 @@ function build_busybox()
 function build_rootfs()
 {
 	fakeroot $ESIMU_SCRIPTS_DIR/mk_rootfs.sh
+}
+
+function build_debug()
+{
+	case $2 in
+		kb)
+			echo "-------------------- Kernel build --------------------"
+			build_kernel
+			;;
+		kc)
+			echo "-------------------- Kernel defConfig --------------------"
+			build_kernel_defconfig
+			;;
+		ksc)
+			echo "-------------------- Kernel SavedefConfig --------------------"
+			$ESIMU_ROOT/out/
+			CROSS_COMPILE=$ESIMU_TOOLCHAINS_DIR/aarch64/bin/aarch64-linux-gnu-
+			make -C $ESIMU_KERNEL_SRC ARCH=arm64 O=$ESIMU_KERNEL_OUT savedefconfig
+			;;
+		km)
+			echo "-------------------- Kernel Menuconfig --------------------"
+			build_kernel_menuconfig
+			;;
+		*)
+			echo "Usage: $name [kb|kc|ksc|km]"
+			exit 0;
+			;;
+	esac
 }
 
 function exec_build()
@@ -82,6 +109,10 @@ function exec_build()
 		r|rootfs)
 			echo "-------------------- Start to create Rootfs --------------------"
 			build_rootfs
+			;;
+		d|debug)
+			echo "-------------------- Start to debug --------------------"
+			build_debug $*
 			;;
 		a|all)
 			echo "-------------------- Start to build Qemu --------------------"

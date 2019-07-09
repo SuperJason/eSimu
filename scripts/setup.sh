@@ -118,3 +118,5 @@ if [[ -d $ESIMU_PATCHES_CUR_DIR && -n "$(ls -A $ESIMU_PATCHES_CUR_DIR)" ]]; then
 	git am $ESIMU_PATCHES_CUR_DIR/*
 fi
 cd $ESIMU_ROOT
+
+cd $ESIMU_ROOT/out/
