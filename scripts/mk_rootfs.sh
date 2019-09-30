@@ -42,6 +42,11 @@ rm -f $ESIMU_ROOTFS_DIR/linuxrc
 
 cp -r $ESIMU_PATCHES_DIR/rootfs/* $ESIMU_ROOTFS_DIR/
 
+if [ -x $ESIMU_ROOT/out/rootfs_cp.sh ]; then
+	cd $ESIMU_ROOT/out/
+	./rootfs_cp.sh
+fi
+
 cd $ESIMU_ROOTFS_DIR/
 find . | cpio -o -H newc | gzip -9 > $ESIMU_ROOT/out/ramdisk.gz
 mkimage -n "ramdisk" -A arm -O linux -T ramdisk -C gzip -d $ESIMU_ROOT/out/ramdisk.gz $ESIMU_ROOT/out/ramdisk.img
